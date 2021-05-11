@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 // for anime transition is used
-import { Transition } from 'react-transition-group';
-
+// import { Transition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 class App extends Component {
   state = {
     show: true
@@ -14,6 +14,10 @@ class App extends Component {
     //   color: "white",
     //   borderRadius: 4
     // }
+    const animateTime = {
+      enter: 1000,
+      exit: 500
+    }
     return (
       <div className="App" >
         <button onClick={() => this.setState({ show: !this.state.show })}>
@@ -26,7 +30,23 @@ class App extends Component {
             entering & entered,
             when false:
             exiting & exited */}
-        <Transition in={this.state.show} timeout={1000}>
+        {/* <Transition */}
+        <CSSTransition
+          in={this.state.show}
+          // timeout={1000}
+          timeout={animateTime}
+          mountOnEnter
+          unmountOnExit
+          // onEnter={() => console.log("onEnter")}
+          // onEntering={() => console.log("onEntering")}
+          // onEntered={() => console.log("onEntered")}
+          // onExit={() => console.log("onExit")}
+          // onExited={() => console.log("onExited")}
+          // onExiting={() => console.log("onExiting")}
+          // CSSTransition class
+          classNames="myClass"
+
+        >
           {
             mode => (
               // <p>{mode}</p>
@@ -34,15 +54,19 @@ class App extends Component {
                 background: "black",
                 color: "white",
                 borderRadius: 4,
-                transition: 'opacity 1s ease-out',
-                // opacity: mode === "exiting" ? 0 : 1
-                opacity: mode === "exited" ? 0 : 1
+                // // transition timeout & ease-out must be the same
+                // transition: 'opacity 1s ease-out',
+                // // opacity: mode === "exiting" ? 0 : 1
+                // // opacity: mode === "exited" ? 0 : 1
+                // opacity: mode === "exiting" || mode === "entering" ? 0 : 1
               }}>
                 <p>This is Sabrina Sumona</p>
               </div>
             )
           }
-        </Transition>
+          {/* </Transition> */}
+        </CSSTransition>
+        <p>I love coding</p>
       </div >
     );
   }
